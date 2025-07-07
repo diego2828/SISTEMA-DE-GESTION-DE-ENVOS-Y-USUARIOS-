@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/WebApi20250626193216/providers/Microsoft.ServiceLinker/linkers/ConnectionStringsCadenaConexion1_96DCD3C164",
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/obligatorio2n3e/databases/OB1",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:CadenaConexion1",
+      "dynamicId": null
+    }
+  }
+}

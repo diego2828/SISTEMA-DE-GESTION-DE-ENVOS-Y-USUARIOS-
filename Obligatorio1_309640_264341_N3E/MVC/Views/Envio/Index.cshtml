@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MVC.Models.EnviosVM.ListadoEnviosEnProcesoViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Envios en Proceso</h1>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumeroTracking)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumeroTracking)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm me-1">
+                        Finalizar envío
+                    </a>
+                    <a asp-action="AgregarComentario" asp-route-idEnvio="@item.Id" class="btn btn-secondary btn-sm">
+                        Agregar Comentario
+                    </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index" asp-controller="Home" class="text-secondary">Volver</a>
+</div>

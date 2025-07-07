@@ -1,0 +1,59 @@
+﻿@model List<MVC.Models.EnviosVM.EnvioConComentariosVM>
+
+@{
+    ViewBag.Title = "Mis Envíos";
+}
+
+<h2 class="mb-4">Mis Envíos</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">No tienes envíos registrados.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>N° Tracking</th>
+                    <th>Finalizado</th>
+                    <th>Fecha Finalización</th>
+                    <th>Comentarios</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var envio in Model)
+                {
+                    <tr>
+                        <td>@envio.NumeroTracking</td>
+                        <td>@(envio.Finalizado ? "Sí" : "No")</td>
+                        <td>
+                            @(envio.FechaFinalizacion.HasValue && envio.FechaFinalizacion.Value.Year > 1900
+                                ? envio.FechaFinalizacion.Value.ToShortDateString()
+                                : "-")
+                        </td>
+                        <td>
+                            @if (envio.Comentarios != null && envio.Comentarios.Any())
+                            {
+                                <ul class="mb-0 ps-3">
+                                    @foreach (var com in envio.Comentarios)
+                                    {
+                                        <li>
+                                            <strong>Empleado: @com.EmpleadoEmail:</strong>
+                                            @com.Mensaje
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Sin comentarios</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

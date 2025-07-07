@@ -1,0 +1,67 @@
+﻿@model List<MVC.Models.EnviosVM.BuscarEnvioVM>
+
+@{
+    ViewBag.Title = "Buscar Envíos por Comentario";
+}
+
+<h2 class="mb-4">Buscar Envíos por Comentario</h2>
+
+<form method="post" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="palabra" class="form-control" placeholder="Ingrese una palabra..." required />
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </div>
+</form>
+
+@if (!string.IsNullOrEmpty(ViewBag.Error as string))
+{
+    <div class="alert alert-danger">@ViewBag.Error</div>
+}
+@if (!string.IsNullOrEmpty(ViewBag.Mensaje as string))
+{
+    <div class="alert alert-info">@ViewBag.Mensaje</div>
+}
+
+@if (Model != null && Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="table-light">
+                <tr>
+                    <th>N° Tracking</th>
+                    <th>Finalizado</th>
+                    <th>Fecha Finalizacion</th>
+                    <th>Comentarios</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var envio in Model)
+                {
+                    <tr>
+                        <td>@envio.NumeroTracking</td>
+                        <td>@(envio.EstadoFinalizado ? "Sí" : "No")</td>
+                        <td>@(envio.Fecha?.ToShortDateString() ?? "-")</td>
+                        <td>
+                            @if (envio.Comentarios != null && envio.Comentarios.Any())
+                            {
+                                <ul class="mb-0 ps-3">
+                                    @foreach (var com in envio.Comentarios)
+                                    {
+                                        <li>
+                                            <strong>@com.EmpleadoEmail:</strong>
+                                            @com.Mensaje
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                            else
+                            {
+                                <span class="text-muted">Sin comentarios</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

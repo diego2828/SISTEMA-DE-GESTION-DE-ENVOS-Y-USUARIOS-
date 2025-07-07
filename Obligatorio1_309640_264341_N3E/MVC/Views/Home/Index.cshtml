@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success text-center">@TempData["Mensaje"]</div>
+}
+
+@{
+    ViewData["Title"] = "Inicio";
+    var correo = Context.Session.GetString("correo");
+    var rol = Context.Session.GetString("rol");
+    bool logueado = !string.IsNullOrEmpty(rol);
+}
+<h2>Inicio</h2>
+<hr />
+
+<div class="container" style="margin-top:40px;">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body text-center">
+                    <h1 class="display-4 mb-3" style="font-weight: bold;">LOGÍSTICA</h1>
+                    <h4 class="mb-4 text-muted">Envíos a todo el país – <span style="font-weight: bold;">Trazabilidad y confianza</span> </h4>
+                    <p class="lead mb-4">
+                        Somos una empresa dedicada a la logística de envíos de paquetes, operando en todo el territorio nacional. Nos destacamos por una trazabilidad total de cada paquete y una comunicación clara y directa con nuestros clientes.
+                    </p>
+                    @if (logueado)
+                    {   
+                        <hr />
+
+                        <div class="mb-3">
+                            <h5 class="text-dark mb-2">¡Bienvenido/a <span class="fw-bold text-dark">@correo</span>!</h5>
+                            <p>Rol: <span class="badge bg-dark text-white">@rol</span></p>
+                        </div>
+
+                        @if (rol == "ADMINISTRADOR")
+                        {
+                            <a class="btn btn-outline-secondary btn-lg" asp-controller="Usuario" asp-action="Index">
+                                Gestión de Usuarios
+                            </a>
+                            <a class="btn btn-outline-secondary btn-lg" asp-controller="Usuario" asp-action="Create">
+                                Crear Usuario
+                            </a>
+                        }
+                        <a class="btn btn-outline-primary btn-lg me-2" asp-controller="Envio" asp-action="Create">
+                            Crear Envío Común
+                        </a>
+
+                        <a class="btn btn-outline-primary btn-lg me-2" asp-controller="Envio" asp-action="CreateUrgente">
+                            Crear Envío Urgente
+                        </a>
+
+                        <a class="btn btn-outline-success btn-lg me-2" asp-controller="Envio" asp-action="Index">
+                            Ver Envíos en Proceso
+                        </a>
+                       
+                    }
+                    else
+                    {
+                        <hr />
+                        <a class="btn btn-dark btn-lg" asp-controller="Usuario" asp-action="Login">
+                            Iniciar Sesión
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Consulta de Envío";
+}
+
+<div class="container mt-4" style="max-width: 450px;">
+    <h2 class="mb-4">Consulta de Envío</h2>
+
+    <form asp-action="Consultar" method="post" class="mb-3">
+        <div class="mb-3">
+            <label for="tracking" class="form-label">Número de Tracking:</label>
+            <input type="text" class="form-control" name="tracking" id="tracking" autocomplete="off" />
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+</div>

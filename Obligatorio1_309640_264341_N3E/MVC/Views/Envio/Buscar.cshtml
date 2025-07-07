@@ -1,0 +1,50 @@
+﻿@model IEnumerable<MVC.Models.EnviosVM.ListadoEnvioViewModel>
+
+@{
+    ViewData["Title"] = "Buscar Envios";
+}
+
+<h1>Envios Filtrados</h1>
+<form method="post" asp-action="Buscar">
+    <label>Fecha Inicio: (formato yyyy-MM-dd)</label>
+    <input type="text" name="fechaInicio" required />
+
+    <label>Fecha Fin: (formato yyyy-MM-dd)</label>
+    <input type="text" name="fechaFin" required />
+
+    <label>Estado:</label>
+    <select name="estado">
+        <option value="true">Finalizados</option>
+        <option value="false">No Finalizados</option>
+    </select>
+
+    <button type="submit">Buscar</button>
+</form>
+@ViewBag.Mensaje
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered mt-3">
+        <thead class="table-light">
+            <tr>
+                <th>Tracking</th>
+                <th>Finalizado</th>
+                <th>Fecha de Inicio</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var envio in Model)
+            {
+                <tr>
+                    <td>@envio.NumeroTracking</td>
+                    <td>@(envio.Finalizado ? "Sí" : "No")</td>
+                    <td>@envio.FechaInicio.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>No hay envíos en esas fechas</p>
+}

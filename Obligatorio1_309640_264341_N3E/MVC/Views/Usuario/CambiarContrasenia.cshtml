@@ -1,0 +1,46 @@
+﻿@model MVC.Models.UsuariosVM.UsuarioPassViewModel
+
+@{
+    ViewData["Title"] = "CambiarContrasenia";
+}
+
+<h1>CambiarContrasenia</h1>
+
+<h4>UsuarioPassViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CambiarContrasenia">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+
+                <input asp-for="Email" value="@ViewBag.Email" class="form-control" readonly />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassActual" class="control-label" ></label>
+                <input asp-for="PassActual" class="form-control" required />
+                <span asp-validation-for="PassActual" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassNueva" class="control-label"></label>
+                <input asp-for="PassNueva" class="form-control" required />
+                <span asp-validation-for="PassNueva" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+@if (ViewBag.Mensaje != null)
+{
+    <div class="alert alert-danger text-center mb-3">@ViewBag.Mensaje</div>
+}
